@@ -1,35 +1,51 @@
 import React from 'react';
-import Fruit from './Orange';
+import axios from 'axios';
+import Movie from './Movie';
+import './App.css';
 
-
-const fruitLike=[
-  {
-    id: 1,
-    name : 'banana',
-    image : 'https://cdn-icons-png.flaticon.com/512/284/284780.png',
-    rating: 5,
-  },
-  {
-    id:2,
-    name : 'apple',
-    image : 'https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FYZiGz%2FbtqxdqHsg3G%2FTmrEpyujNbbtNtOsiFpkik%2Fimg.jpg',
-    rating: 4.9,
-  },
-  {
-    id:3,
-    name : 'orang',
-    image : 'https://cdn-icons-png.flaticon.com/512/135/135620.png',
-    rating: 4.7,
+class App extends React.Component {
+  state = {
+    isLoading:true,
+    movies: [],
   }
-];
+  getMovies =  async ()=>{
+    const {
+      data : {
+        data: {movies},
+      },
+    } =  await axios.get('https://yts.mx/api/v2/list_movies.json?sort_by=rating');
+    this.setState({movies,isLoading:false });
+  }
+  componentDidMount(){
+    this.getMovies();
+  }
+ render(){
+   const {isLoading , movies} = this.state; 
+   return( 
+    <section className='container'>
+      {isLoading ? ( 
+        <div className='loader'>
+            <span className='loader__text'>'Loading.....'</span>
+        </div> 
+        )
+      :( 
+        <div className='movies'>
+          {movies.map(movie => (
+             <Movie 
+              key={movie.id}
+              id={movie.id} 
+              year={movie.year} 
+              title={movie.title}
+              poster={movie.medium_cover_image}
+              summary={movie.summary}
+              genres={movie.genres}
+              />
+           ))}
+        </div>
+      )}
+    </section>
+   );
 
-function App() {
-  return (
-    <div className="App">
-      <h1>Hello</h1>
-      {fruitLike.map((dish) => (<Fruit key={dish.id} name={dish.name}  picture={dish.image}/>))}
-    </div>
-  );
+ }
 }
-
 export default App;
