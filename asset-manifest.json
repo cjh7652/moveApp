@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/moveApp/static/css/main.3023de22.css",
+    "main.js": "/moveApp/static/js/main.3a753359.js",
+    "index.html": "/moveApp/index.html",
+    "main.3023de22.css.map": "/moveApp/static/css/main.3023de22.css.map",
+    "main.3a753359.js.map": "/moveApp/static/js/main.3a753359.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.3023de22.css",
+    "static/js/main.3a753359.js"
+  ]
+}
